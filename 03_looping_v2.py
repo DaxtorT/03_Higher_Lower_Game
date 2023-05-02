@@ -75,6 +75,10 @@ while end_game == "no":
     print(heading)
     choose = int_checker(choose_instruction)
 
+    # YOU ARE HERE
+        # Code for looping 'Allowed Guesses' every 'Round'
+        # IDK just figure it out
+
     # End game if exit code is typed
     if choose == "xxx":
         break
