@@ -75,7 +75,7 @@ while end_round == "no":
     # Constants for loop
     guesses_played = 0
     guesses_allowed = 10
-    secret_num = 25
+    secret_num = 14
 
     # Rounds Heading
     print()
@@ -89,11 +89,9 @@ while end_round == "no":
 
     # Secondary Rounds Loop (For allowed guesses of each round)    
     end_guess = "no"
-    bwhile end_guess == "no":
+    while end_guess == "no":
 
-        print("guess")
 
-        end_guess = "yes"
 
         # This will be Main Game Code (Finish Later)
         guess_heading = f"Guess {guesses_played + 1} of {guesses_allowed}"
@@ -119,6 +117,8 @@ while end_round == "no":
             print("Well Done")
             break
     # Till Here
+
+        print()
 
         # Rest of loop / round
         guesses_played += 1
