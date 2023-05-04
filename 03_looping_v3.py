@@ -1,7 +1,7 @@
 # Error with loops not counting up and rounds looping every guess
 
 # Functions go here
-def int_checker(question, low=None, high=None):
+def int_checker(question, low=None, high=None, exit_code=None):
     # Constant for function
     situation = ""
 
@@ -14,8 +14,12 @@ def int_checker(question, low=None, high=None):
 
     while True:
 
+        response = input(question)
+        if response == exit_code:
+            return response
+
         try:
-            response = int(input(question))
+            response = int(response)
 
             # Checks input is not too high or too low, if specified
             if situation == "both":
@@ -58,20 +62,20 @@ def check_rounds():
     
 # Main Routine goes here
 # Constants for program
-secret_num = 25
+rounds_played = 0
 choose_instruction = "Please Guess a Number: "
 
 # Ask user for # of rounds, <enter> for infinite mode
-rounds = check_rounds()
+rounds = int_checker("How Many Rounds? <Enter for Infinite> ", 1, exit_code="")
 
 # Main Rounds Loop
-end_game = "no"
-while end_game == "no":
+end_round = "no"
+while end_round == "no":
 
     # Constants for loop
     guesses_played = 0
     guesses_allowed = 10
-    rounds_played = 0
+    secret_num = 25
 
     # Rounds Heading
     print()
@@ -84,12 +88,12 @@ while end_game == "no":
     print(heading)
 
     # Secondary Rounds Loop (For allowed guesses of each round)    
-    end_round = "no"
-    while end_round == "no":
+    end_guess = "no"
+    bwhile end_guess == "no":
 
         print("guess")
 
-        end_round = "yes"
+        end_guess = "yes"
 
         # This will be Main Game Code (Finish Later)
         guess_heading = f"Guess {guesses_played + 1} of {guesses_allowed}"
@@ -97,7 +101,12 @@ while end_game == "no":
         print(guess_heading)
 
     # Temporary Here
-        guess = int_checker("Please choose a number between 1 & 26: ", 1, 26)
+        guess = int_checker("Please choose a number between 1 & 26: ", 1, 26, "xxx")
+
+        # End game if exit code is typed
+        if guess == "xxx":
+            end_round = "yes"
+            break
 
         # Too High or Low Checker
         if guess < secret_num:
@@ -111,18 +120,14 @@ while end_game == "no":
             break
     # Till Here
 
-        # End game if exit code is typed
-        if guess == "xxx":
-            break
-
         # Rest of loop / round
         guesses_played += 1
 
         if guesses_played == guesses_allowed:
-            end_round = "yes"
+            end_guess = "yes"
 
     # Rest of loop / game
     rounds_played += 1
     
     if rounds_played == rounds:
-            end_game = "yes"
+            end_round = "yes"
