@@ -1,5 +1,7 @@
+import random
+
 # Functions go here
-def int_checker(question, low=None, high=None):
+def int_checker(question, low=None, high=None, exit_code=None):
     # Constant for function
     situation = ""
 
@@ -12,13 +14,17 @@ def int_checker(question, low=None, high=None):
 
     while True:
 
+        response = input(question)
+        if response == exit_code:
+            return response
+
         try:
-            response = int(input(question))
+            response = int(response)
 
             # Checks input is not too high or too low, if specified
             if situation == "both":
                 if response < low or response > high:
-                    print(f"Please enter a number between {low} and {high}")
+                    print(f"Please enter a number between {low} and {high} (Inclusive)")
                     continue
 
             # Checks input is not too low
@@ -70,12 +76,10 @@ def check_rounds():
         return response
   
 
-
-
-
 # Main Routine goes here
 # Constants for program
-
+rounds_played = 0
+choose_instruction = "Please Guess a Number: "
 
 # Lists or Dicts for program
 
@@ -90,24 +94,26 @@ def check_rounds():
 
 
     # Ask user for Low # (for secret # range)
-
+    low_num = int_checker("Low Number: ")
 
     # Ask user for High # (for secret # range)
+    high_num = int_checker("High Number: ", low_num + 1)
 
+    # Ask user for # of rounds, <enter> for infinite mode
+    rounds = int_checker("How Many Rounds? <Enter for Infinite> ", 1, exit_code="")
 
-    # Generate 'secret' # between Low # and High #
+    # Main Rounds Loop
+    end_round = "no"
+    while end_round == "no":
+        
+        # Constants for loop
+        guesses_played = 0
+        guesses_allowed = 10
 
+        # Generate random 'secret' number
+        secret_num = random.randint(low_num, high_num)
 
-    # Calculate allowed guesses for secret # range
-
-
-    # Ask user for # of rounds, <enter> for infinites
-    rounds = check_rounds()
-
-    end_game = "no"
-    while end_game == "no":
-
-        # Rounds Headings (Round # of # or Continous Mode: Round #)
+        # Rounds Heading
         print()
         if rounds == "":
             heading = f"Continous Mode: Round {rounds_played + 1}"
@@ -117,24 +123,48 @@ def check_rounds():
             
         print(heading)
 
-        # Ask user for # to guess
-        choose = int_checker(choose_instruction)
+        # Secondary Rounds Loop (For allowed guesses of each round)    
+        end_guess = "no"
+        while end_guess == "no":
 
-        # Compare user guess to 'secret' #
+            # This will be Main Game Code (Finish Later)
+            guess_heading = f"Guess {guesses_played + 1} of {guesses_allowed}"
 
+            print(guess_heading)
 
-        # If user guess is 'secret' #, end round
+            # Checks intput is 
+            guess = int_checker("Please choose a number between 1 & 26: ", 1, 26, "xxx")
 
+            # End game if exit code is typed
+            if guess == "xxx":
+                end_round = "yes"
+                break
 
-        # End game if exit code is typed
-        if choose == "xxx":
-            break
+            # Too High or Low Checker
+            if guess < secret_num:
+                print("Too Low")
+
+            elif guess > secret_num:
+                print("Too High")
+
+            elif guess == secret_num:
+                print("Well Done")
+                break
+
+            # Empty Print for spacing
+            print()
+
+            # Rest of loop / round
+            guesses_played += 1
+
+            if guesses_played == guesses_allowed:
+                end_guess = "yes"
 
         # Rest of loop / game
-        rounds_played = rounds_played + 1
+        rounds_played += 1
         
         if rounds_played == rounds:
-                end_game = "yes"
+                end_round = "yes"
 
 
     # Tell user they have run out of rounds to play

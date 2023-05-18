@@ -74,7 +74,7 @@ while end_round == "no":
 
     # Constants for loop
     guesses_played = 0
-    guesses_allowed = 10
+    guesses_allowed = 5
     secret_num = 14
 
     # Rounds Heading
@@ -91,19 +91,17 @@ while end_round == "no":
     end_guess = "no"
     while end_guess == "no":
 
-
-
         # This will be Main Game Code (Finish Later)
         guess_heading = f"Guess {guesses_played + 1} of {guesses_allowed}"
 
         print(guess_heading)
 
-    # Temporary Here
+        # Checks intput is 
         guess = int_checker("Please choose a number between 1 & 26: ", 1, 26, "xxx")
 
         # End game if exit code is typed
         if guess == "xxx":
-            end_round = "yes"
+            end_guess = "yes"
             break
 
         # Too High or Low Checker
@@ -116,8 +114,8 @@ while end_round == "no":
         elif guess == secret_num:
             print("Well Done")
             break
-    # Till Here
 
+        # Empty Print for spacing
         print()
 
         # Rest of loop / round
